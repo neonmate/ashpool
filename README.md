@@ -1,6 +1,6 @@
 # HTML Copier
 
-API for dumping website to AWS.
+API for dumping websites to AWS.
 
 ## `POST` `v1/copy`
 

@@ -19,11 +19,14 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     builder (3.2.3)
+    byebug (9.0.6)
+    coderay (1.1.1)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
     concurrent-ruby (1.0.5)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
+    diff-lcs (1.3)
     equalizer (0.0.11)
     grape (0.19.2)
       activesupport
@@ -39,15 +42,37 @@ GEM
     i18n (0.8.4)
     ice_nine (0.11.2)
     jmespath (1.3.1)
+    method_source (0.8.2)
     minitest (5.10.2)
     multi_json (1.12.1)
     multi_xml (0.6.0)
     mustermann (1.0.0)
     mustermann-grape (1.0.0)
       mustermann (~> 1.0.0)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-byebug (3.4.2)
+      byebug (~> 9.0)
+      pry (~> 0.10)
     rack (2.0.3)
     rack-accept (0.4.5)
       rack (>= 0.4)
+    rspec (3.6.0)
+      rspec-core (~> 3.6.0)
+      rspec-expectations (~> 3.6.0)
+      rspec-mocks (~> 3.6.0)
+    rspec-core (3.6.0)
+      rspec-support (~> 3.6.0)
+    rspec-expectations (3.6.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.6.0)
+    rspec-mocks (3.6.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.6.0)
+    rspec-support (3.6.0)
+    slop (3.6.0)
     thread_safe (0.3.6)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
@@ -63,6 +88,8 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk
   grape
+  pry-byebug
+  rspec
 
 BUNDLED WITH
    1.15.1
