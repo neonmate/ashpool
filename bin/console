@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'pry'
-require_relative '../app/html_copier'
+require_relative '../lib/ashpool'
 
 pry

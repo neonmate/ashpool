@@ -1,4 +1,4 @@
-describe Downloader, :type => :aruba do
+describe Ashpool::Downloader, :type => :aruba do
   let(:url) { 'http://example.com' }
   let(:expected_file) { '19900101000000000000000_example_com_.zip' }
   subject(:downloader) { described_class.new(url, 'tmp/aruba') }

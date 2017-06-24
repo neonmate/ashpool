@@ -8,4 +8,5 @@ group :test do
   gem 'timecop'
   gem 'rspec'
   gem 'aruba'
+  gem 'webmock'
 end

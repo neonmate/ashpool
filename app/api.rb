@@ -1,9 +1,8 @@
 require 'grape'
 
-require_relative '../lib/downloader'
-require_relative '../lib/uploader'
+require_relative '../lib/ashpool'
 
-class HtmlCopier < Grape::API
+class Api < Grape::API
   SUPPORTED_REGIONS = %w(us-east-1 us-west-2 eu-west-1 ap-northeast-1 ap-southeast-1 ap-southeast-2)
 
   version 'v1', using: :path
@@ -13,12 +12,13 @@ class HtmlCopier < Grape::API
     requires :url, type: String
     requires :access_key_id, type: String
     requires :secret_access_key, type: String
-    optional :region, type: String, default: 'us-west-2', values: SUPPORTED_REGIONS
+    requires :bucket, type: String
+    optional :region, type: String, values: SUPPORTED_REGIONS
   end
 
-  post :copy do
+  post :dump do
     file_path = Downloader.new(params[:url]).run
-    Uploader.new(params[:access_key_id], params[:secret_access_key], file_path).run
-    'done'
+    Uploader.new(params[:access_key_id], params[:secret_access_key], params[:region], params[:bucket], file_path).run
+    {status: 200, title: 'Success'}.to_json
   end
 end

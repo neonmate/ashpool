@@ -1,7 +1,8 @@
-require_relative '../app/html_copier'
+require_relative '../lib/ashpool'
 require 'timecop'
 require 'aruba/rspec'
 require 'pry'
+require 'webmock/rspec'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
