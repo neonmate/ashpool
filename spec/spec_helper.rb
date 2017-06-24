@@ -1,5 +1,7 @@
 require_relative '../app/html_copier'
 require 'timecop'
+require 'aruba/rspec'
+require 'pry'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
@@ -14,5 +16,9 @@ RSpec.configure do |config|
 
   config.around(:each) do |example|
     Timecop.freeze(Time.local(1990)) { example.run }
+  end
+
+  config.after(:each) do
+    FileUtils.rm_rf(Dir['tmp/aruba/*'])
   end
 end

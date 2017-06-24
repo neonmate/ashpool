@@ -102,7 +102,6 @@ GEM
     timecop (0.9.0)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
-    vcr (3.0.3)
     virtus (1.0.5)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
@@ -119,7 +118,6 @@ DEPENDENCIES
   pry-byebug
   rspec
   timecop
-  vcr
 
 BUNDLED WITH
    1.15.1

@@ -5,10 +5,11 @@ class Downloader
   MAX_PATH_LENGTH = 1024
   WORKING_DIR = 'tmp'
 
-  def initialize(url)
+  def initialize(url, working_dir = WORKING_DIR)
     @url = url
     @timestamp = current_timestamp
     @uri = URI.parse(url)
+    @working_dir = working_dir
   end
 
   def run
@@ -32,7 +33,7 @@ class Downloader
       "--directory-prefix=#{uncompressed_path}",
       *ignore_robots,
       @uri.to_s,
-      chdir: WORKING_DIR
+      chdir: @working_dir
     )
   end
 
@@ -43,7 +44,7 @@ class Downloader
       '-m',
       compressed_path,
       uncompressed_path,
-      chdir: WORKING_DIR
+      chdir: @working_dir
     )
 
     compressed_path
