@@ -17,8 +17,9 @@ Example request:
 ```
 curl --request POST \
   --url https://ashpool-api.herokuapp.com/v1/dump \
+  --header 'cache-control: no-cache' \
   --header 'content-type: application/json' \
-  --data '{"url": "https://example.com","access_key_id": "1234","secret_access_key": "ABCD","bucket": "test", "region": "us-west-2"}'
+  --data '{"url": "example.com", "access_key_id": "1234", "secret_access_key": "ABCD", "region": "us-west-2", "bucket": "test"}'
 ```
 
 Example response:
