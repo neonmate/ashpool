@@ -1,7 +1,4 @@
 require 'grape'
-require 'raven'
-
-require_relative '../lib/ashpool'
 
 class Api < Grape::API
   use Raven::Rack
