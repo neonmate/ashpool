@@ -1,8 +1,11 @@
 require 'grape'
+require 'raven'
 
 require_relative '../lib/ashpool'
 
 class Api < Grape::API
+  use Raven::Rack
+
   SUPPORTED_REGIONS = %w(us-east-1 us-west-2 eu-west-1 ap-northeast-1 ap-southeast-1 ap-southeast-2)
 
   version 'v1', using: :path
