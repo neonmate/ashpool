@@ -17,8 +17,8 @@ class Api < Grape::API
   end
 
   post :dump do
-    file_path = Downloader.new(params[:url]).run
-    Uploader.new(params[:access_key_id], params[:secret_access_key], params[:region], params[:bucket], file_path).run
+    file_path = Ashpool::Downloader.new(params[:url]).run
+    Ashpool::Uploader.new(params[:access_key_id], params[:secret_access_key], params[:region], params[:bucket], file_path).run
     {status: 200, title: 'Success'}.to_json
   end
 end

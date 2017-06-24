@@ -1,3 +1,3 @@
-require_relative 'app/html_copier'
+require_relative 'app/api'
 
-run HtmlCopier
+run Api
