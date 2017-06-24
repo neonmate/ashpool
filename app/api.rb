@@ -8,6 +8,10 @@ class Api < Grape::API
   version 'v1', using: :path
   format :json
 
+  rescue_from :all do |e|
+    error!({status: 500, title: 'Internal Server Error'}.to_json, 500)
+  end
+
   params do
     requires :url, type: String
     requires :access_key_id, type: String
