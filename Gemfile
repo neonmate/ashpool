@@ -5,5 +5,8 @@ gem 'grape'
 gem 'pry-byebug'
 
 group :test do
+  gem 'timecop'
   gem 'rspec'
+  gem 'vcr'
+  gem 'aruba'
 end

@@ -17,8 +17,8 @@ class HtmlCopier < Grape::API
   end
 
   post :copy do
-    dump = Downloader.new.download(params[:url])
-    Uploader.new(params[:access_key_id], params[:secret_access_key]).upload(dump)
+    file_path = Downloader.new(params[:url]).run
+    Uploader.new(params[:access_key_id], params[:secret_access_key], file_path).run
     'done'
   end
 end
