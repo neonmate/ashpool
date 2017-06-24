@@ -4,13 +4,112 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap 101 Template</title>
+    <title>Ashpool API Client</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+      body {
+        padding-top: 60px
+      }
+    </style>
   </head>
   <body>
-    <h1>Hello, world!</h1>
-
+    <div class="container">
+      <h1>Ashpool</h1>
+      <p class="lead">Dumping websites to Amazon S3.</p>
+      <hr>
+      <div class="alert alert-success hidden" id="noticeBox" role="alert"></div>
+      <div class="alert alert-danger hidden" id="alertBox" role="alert"></div>
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label for="inputUrl" class="col-sm-2 control-label">URL *</label>
+          <div class="col-sm-10">
+            <input type="url" class="form-control" id="inputUrl" placeholder="URL" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputAccessKeyId" class="col-sm-2 control-label">Access Key ID *</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputAccessKeyId" placeholder="Access Key ID" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputSecretAccessKey" class="col-sm-2 control-label">Secret Access Key *</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" id="inputSecretAccessKey" placeholder="Secret Access Key" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputRegion" class="col-sm-2 control-label">Region *</label>
+          <div class="col-sm-10">
+            <select class="form-control" id="inputRegion">
+              <option value="us-east-1">us-east-1</option>
+              <option value="us-west-2">us-west-2</option>
+              <option value="eu-west-1">eu-west-1</option>
+              <option value="ap-northeast-1">ap-northeast-1</option>
+              <option value="ap-southeast-1">ap-southeast-1</option>
+              <option value="ap-southeast-2">ap-southeast-2</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputBucket" class="col-sm-2 control-label">Bucket *</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputBucket" placeholder="Bucket" required>
+          </div>
+        </div>
+        <p class="small pull-right">* required fields</p>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary btn-large pull-right save-button" id="saveButton">Save to S3</button>
+          </div>
+        </div>
+      </form>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+      $(function() {
+        var $url = $('#inputUrl');
+        var $accessKeyId = $('#inputAccessKeyId');
+        var $secretAccessKey = $('#inputSecretAccessKey');
+        var $region = $('#inputRegion');
+        var $bucket = $('#inputBucket');
+        var $noticeBox = $('#noticeBox');
+        var $alertBox = $('#alertBox');
+
+        var resource_url = 'https://ashpool-api.herokuapp.com/v1/dump'
+
+        $('#saveButton').on('click', function(event) {
+          event.preventDefault();
+
+          $noticeBox.addClass('hidden');
+          $alertBox.addClass('hidden');
+
+          if (!$url.val().trim()) { return }
+          if (!$accessKeyId.val().trim()) { return }
+          if (!$secretAccessKey.val().trim()) { return }
+          if (!$bucket.val().trim()) { return }
+
+          $.post(
+            resource_url,
+            {
+              url: $url.val(),
+              accessKeyId: $accessKeyId.val(),
+              secretAccessKey: $secretAccessKey.val(),
+              region: $region.val(),
+              bucket: $bucket.val(),
+            }
+          )
+          .done(function() {
+            $noticeBox.removeClass('hidden');
+            $noticeBox.text('Successfull uploaded.');
+          })
+          .fail(function() {
+            $alertBox.removeClass('hidden');
+            $alertBox.text('An unknown error occured. Please try it later again!');
+          });
+        });
+      });
+    </script>
   </body>
 </html>
