@@ -1,6 +1,8 @@
 require 'grape'
 
 class Api < Grape::API
+  ACCESS_CONTROL_ALLOW_ORIGIN = 'https://neonmate.github.io/ashpool/'
+
   use Raven::Rack
 
   SUPPORTED_REGIONS = %w(us-east-1 us-west-2 eu-west-1 ap-northeast-1 ap-southeast-1 ap-southeast-2)
@@ -8,9 +10,15 @@ class Api < Grape::API
   version 'v1', using: :path
   format :json
 
-  rescue_from :all do |e|
-    error!({status: 500, title: 'Internal Server Error'}.to_json, 500)
+  rescue_from(:all) do
+    error!(
+        { status: 500, title: 'Internal Server Error' }.to_json,
+        500,
+        'Access-Control-Allow-Origin' => ACCESS_CONTROL_ALLOW_ORIGIN
+    )
   end
+
+  before { header 'Access-Control-Allow-Origin', ACCESS_CONTROL_ALLOW_ORIGIN }
 
   params do
     requires :url, type: String
