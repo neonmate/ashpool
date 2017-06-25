@@ -1,7 +1,7 @@
 require 'grape'
 
 class Api < Grape::API
-  ACCESS_CONTROL_ALLOW_ORIGIN = 'https://neonmate.github.io/ashpool/'
+  ACCESS_CONTROL_ALLOW_ORIGIN = 'https://neonmate.github.io'
 
   use Raven::Rack
 
