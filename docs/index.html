@@ -7,6 +7,8 @@
     <title>Ashpool API Client</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <style>
       body {
         padding-top: 60px
@@ -18,9 +20,15 @@
       <h1>Ashpool</h1>
       <p class="lead">Dumping websites to Amazon S3.</p>
       <hr>
-      <div class="alert alert-success hidden" id="noticeBox" role="alert"></div>
-      <div class="alert alert-danger hidden" id="alertBox" role="alert"></div>
-      <form class="form-horizontal">
+      <div class="alert alert-success hidden" id="noticeBox" role="alert">
+        <button type="button" class="close" id="noticeButton" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span id="noticeMessage"></span>
+      </div>
+      <div class="alert alert-danger hidden" id="alertBox" role="alert">
+        <button type="button" class="close" id="alertButton" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span id="alertMessage"></span>
+      </div>
+      <form class="form-horizontal" id="dumpForm">
         <div class="form-group">
           <label for="inputUrl" class="col-sm-2 control-label">URL *</label>
           <div class="col-sm-10">
@@ -76,12 +84,14 @@
         var $bucket = $('#inputBucket');
         var $noticeBox = $('#noticeBox');
         var $alertBox = $('#alertBox');
+        var $noticeMessage = $('#noticeMessage');
+        var $alertMessage = $('#alertMessage');
+        var $noticeButton = $('#noticeButton');
+        var $alertButton = $('#alertButton');
 
         var resource_url = 'https://ashpool-api.herokuapp.com/v1/dump'
 
-        $('#saveButton').on('click', function(event) {
-          event.preventDefault();
-
+        $('#saveButton').on('click', function() {
           $noticeBox.addClass('hidden');
           $alertBox.addClass('hidden');
 
@@ -102,12 +112,24 @@
           )
           .done(function() {
             $noticeBox.removeClass('hidden');
-            $noticeBox.text('Successfull uploaded.');
+            $noticeMessage.text('Successfull uploaded.');
           })
           .fail(function() {
             $alertBox.removeClass('hidden');
-            $alertBox.text('An unknown error occured. Please try it later again!');
+            $alertMessage.text('An unknown error occured. Please try it later again!');
           });
+        });
+
+        $('#dumpForm').submit(function(event) {
+          event.preventDefault();
+        });
+
+        $noticeButton.on('click', function(){
+          $noticeBox.addClass('hidden');
+        });
+
+        $alertButton.on('click', function(){
+          $alertBox.addClass('hidden');
         });
       });
     </script>
