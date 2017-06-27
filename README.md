@@ -1,6 +1,6 @@
 # Ashpool
 
-API for dumping websites to Amazon S3.
+API for dumping websites to Amazon S3. You might want to use https://neonmate.github.io/ashpool/ as client.
 
 ## `POST` `v1/dump`
 
